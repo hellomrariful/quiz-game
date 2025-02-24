@@ -31,10 +31,10 @@
             <h3 class="question">Which Indian state is known as the "Land of Spices"?</h3>
             
             <div class="options">
-                <button class="option-btn" onclick="checkAnswer('Kerala')">Kerala</button>
-                <button class="option-btn" onclick="checkAnswer('Tamil Nadu')">Tamil Nadu</button>
-                <button class="option-btn" onclick="checkAnswer('Karnataka')">Karnataka</button>
-                <button class="option-btn" onclick="checkAnswer('Andhra Pradesh')">Andhra Pradesh</button>
+                <button class="option-btn" onclick="checkAnswer('Kerala', event)">Kerala</button>
+                <button class="option-btn" onclick="checkAnswer('Tamil Nadu', event)">Tamil Nadu</button>
+                <button class="option-btn" onclick="checkAnswer('Karnataka', event)">Karnataka</button>
+                <button class="option-btn" onclick="checkAnswer('Andhra Pradesh', event)">Andhra Pradesh</button>
             </div>
         </div>
 
@@ -44,6 +44,18 @@
         </div>
     </div>
 
+    <div id="quiz-complete" class="container quiz-complete">
+        <h1>Quiz Completed!</h1>
+        <p>Your Final Score: <span id="final-score">0</span></p>
+        <button class="play-again-btn" onclick="playAgain()">PLAY NOW</button>
+        <!-- <div class="footer">
+            <a href="#">About Us</a>
+            <a href="#">Contact Us</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+        </div> -->
+        <p style="margin-top: 20px; color: #666;">© 2024 Quiz Game. All rights reserved.</p>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>

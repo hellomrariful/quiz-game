@@ -82,23 +82,88 @@ function startTimer() {
     }, 1000);
 }
 
-function checkAnswer(selected) {
+function createCoinAnimation(isPositive, clickPosition) {
+    const coin = document.createElement('div');
+    coin.className = 'coin-animation';
+    coin.textContent = isPositive ? '+100' : '-100';
+    coin.style.color = isPositive ? 'gold' : 'red';
+    
+    // Set initial position
+    coin.style.left = `${clickPosition.x}px`;
+    coin.style.top = `${clickPosition.y}px`;
+    
+    // Calculate target position (coin counter element)
+    const coinCounter = document.getElementById('coin-count');
+    const counterRect = coinCounter.getBoundingClientRect();
+    const moveX = counterRect.left - clickPosition.x + (counterRect.width / 2);
+    const moveY = counterRect.top - clickPosition.y + (counterRect.height / 2);
+    
+    // Set custom properties for animation
+    coin.style.setProperty('--moveX', `${moveX}px`);
+    coin.style.setProperty('--moveY', `${moveY}px`);
+    
+    document.body.appendChild(coin);
+
+    setTimeout(() => {
+        document.body.removeChild(coin);
+    }, 800); // Reduced to match animation duration
+}
+
+function updateCoinCount(amount) {
+    const coinCount = document.getElementById('coin-count');
+    const currentCoins = parseInt(coinCount.textContent);
+    const newAmount = currentCoins + amount;
+    coinCount.textContent = newAmount;
+    coinCount.style.transform = 'scale(1.2)';
+    setTimeout(() => {
+        coinCount.style.transform = 'scale(1)';
+    }, 200);
+}
+
+function checkAnswer(selected, event) {
     const question = questions[currentQuestion];
-    clearInterval(timer); // Clear timer when answer is selected
-    if (selected === question.correct) {
-        const currentCoins = parseInt(document.getElementById('coin-count').textContent);
-        document.getElementById('coin-count').textContent = currentCoins + 1;
-        alert('Correct answer!');
-    } else {
-        alert(`Wrong answer! The correct answer is ${question.correct}`);
-    }
-    currentQuestion++;
-    if (currentQuestion < questions.length) {
-        loadQuestion();
-        startTimer(); // Start timer for next question
-    } else {
-        endQuiz();
-    }
+    clearInterval(timer);
+    
+    const clickPosition = {
+        x: event.clientX,
+        y: event.clientY
+    };
+
+    const buttons = document.querySelectorAll('.option-btn');
+    buttons.forEach(button => {
+        if (button.textContent === selected) {
+            if (selected === question.correct) {
+                button.style.backgroundColor = '#28a745';
+                createCoinAnimation(true, clickPosition);
+                updateCoinCount(100);
+                // Removed alert for correct answer
+            } else {
+                button.style.backgroundColor = '#dc3545';
+                buttons.forEach(btn => {
+                    if (btn.textContent === question.correct) {
+                        btn.style.backgroundColor = '#28a745';
+                    }
+                });
+                createCoinAnimation(false, clickPosition);
+                updateCoinCount(-100);
+                alert('Not the right answer!'); // Updated alert message
+            }
+        }
+    });
+
+    buttons.forEach(button => {
+        button.disabled = true;
+    });
+
+    setTimeout(() => {
+        currentQuestion++;
+        if (currentQuestion < questions.length) {
+            loadQuestion();
+            startTimer();
+        } else {
+            endQuiz();
+        }
+    }, 1000);
 }
 
 function loadQuestion() {
@@ -114,7 +179,7 @@ function loadQuestion() {
     const optionsContainer = document.querySelector('.options');
     optionsContainer.innerHTML = '';
     question.options.forEach(option => {
-        optionsContainer.innerHTML += `<button class="option-btn" onclick="checkAnswer('${option}')">${option}</button>`;
+        optionsContainer.innerHTML += `<button class="option-btn" onclick="checkAnswer('${option}', event)">${option}</button>`;
     });
 
     document.querySelector('.description h3').textContent = question.description.title;
@@ -124,6 +189,24 @@ function loadQuestion() {
 function endQuiz() {
     clearInterval(timer);
     const finalScore = document.getElementById('coin-count').textContent;
-    alert(`Quiz completed! Your final score: ${finalScore} coins`);
-    // You can add more end-quiz logic here
+    document.getElementById('final-score').textContent = finalScore;
+    
+    // Hide quiz container and show completion screen
+    document.getElementById('quiz-container').style.display = 'none';
+    document.getElementById('quiz-complete').style.display = 'block';
+}
+
+function playAgain() {
+    // Reset game state
+    currentQuestion = 0;
+    document.getElementById('coin-count').textContent = '0';
+    timeLeft = 30;
+    
+    // Hide completion screen and show quiz
+    document.getElementById('quiz-complete').style.display = 'none';
+    document.getElementById('quiz-container').style.display = 'block';
+    
+    // Start the quiz
+    loadQuestion();
+    startTimer();
 }

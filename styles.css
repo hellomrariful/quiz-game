@@ -44,10 +44,37 @@ body {
     margin-bottom: 20px;
 }
 
+/* Coin Animation Styles */
+.coin-animation {
+    position: fixed;
+    color: gold;
+    font-size: 24px;
+    font-weight: bold;
+    pointer-events: none;
+    animation: flyToCoin 0.8s ease-out forwards;
+    z-index: 1000;
+}
+
+@keyframes flyToCoin {
+    0% {
+        transform: scale(1) translate(0, 0);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0.5) translate(var(--moveX), var(--moveY));
+        opacity: 0;
+    }
+}
+
 .coins {
+    position: relative;
     background-color: #ffcccb;
     padding: 8px 15px;
     border-radius: 20px;
+}
+
+#coin-count {
+    transition: all 0.3s ease;
 }
 
 .timer {
@@ -98,4 +125,52 @@ body {
 .description h3 {
     margin-bottom: 10px;
     color: #333;
+}
+
+.quiz-complete {
+    text-align: center;
+    display: none;
+}
+
+.quiz-complete h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.quiz-complete p {
+    font-size: 1.5rem;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.play-again-btn {
+    background-color: #28a745;
+    color: white;
+    padding: 15px 40px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.play-again-btn:hover {
+    background-color: #218838;
+}
+
+.footer {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.footer a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
 }
