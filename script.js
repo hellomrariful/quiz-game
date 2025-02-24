@@ -51,27 +51,54 @@ const questions = [
 ];
 
 function verifyAge(age) {
-    if (age === 'above') {
+    if (age === 'above' || age === 'below') {
         document.getElementById('age-verification').style.display = 'none';
         document.getElementById('quiz-container').style.display = 'block';
         startTimer();
         loadQuestion();
     } else {
-        alert('Sorry, you must be 18+ to play this quiz!');
+        alert('Please select your age group to continue!');
     }
 }
 
 function startTimer() {
+    timeLeft = 30; // Reset timer for each question
+    clearInterval(timer); // Clear any existing timer
     timer = setInterval(() => {
         timeLeft--;
         document.getElementById('time').textContent = timeLeft;
         
         if (timeLeft <= 0) {
             clearInterval(timer);
-            alert('Time\'s up!');
-            endQuiz();
+            alert('Time\'s up for this question!');
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
+                loadQuestion();
+                startTimer(); // Start timer for next question
+            } else {
+                endQuiz();
+            }
         }
     }, 1000);
+}
+
+function checkAnswer(selected) {
+    const question = questions[currentQuestion];
+    clearInterval(timer); // Clear timer when answer is selected
+    if (selected === question.correct) {
+        const currentCoins = parseInt(document.getElementById('coin-count').textContent);
+        document.getElementById('coin-count').textContent = currentCoins + 1;
+        alert('Correct answer!');
+    } else {
+        alert(`Wrong answer! The correct answer is ${question.correct}`);
+    }
+    currentQuestion++;
+    if (currentQuestion < questions.length) {
+        loadQuestion();
+        startTimer(); // Start timer for next question
+    } else {
+        endQuiz();
+    }
 }
 
 function loadQuestion() {
@@ -92,19 +119,6 @@ function loadQuestion() {
 
     document.querySelector('.description h3').textContent = question.description.title;
     document.querySelector('.description p').textContent = question.description.text;
-}
-
-function checkAnswer(selected) {
-    const question = questions[currentQuestion];
-    if (selected === question.correct) {
-        const currentCoins = parseInt(document.getElementById('coin-count').textContent);
-        document.getElementById('coin-count').textContent = currentCoins + 1;
-        alert('Correct answer!');
-    } else {
-        alert(`Wrong answer! The correct answer is ${question.correct}`);
-    }
-    currentQuestion++;
-    loadQuestion();
 }
 
 function endQuiz() {
