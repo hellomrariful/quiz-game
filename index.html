@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Age Verification Section -->
+    <div id="age-verification" class="container">
+        <h2>Confirm Your Age</h2>
+        <button class="btn green" onclick="verifyAge('above')">Above 18+</button>
+        <button class="btn red" onclick="verifyAge('below')">Below 18+</button>
+    </div>
+
+    <!-- Quiz Section -->
+    <div id="quiz-container" class="container" style="display: none;">
+        <div class="header">
+            <div class="coins">
+                <span>Total Coins: </span>
+                <span id="coin-count">0</span>
+            </div>
+            <div class="timer">
+                <span id="time">30</span>
+            </div>
+        </div>
+
+        <div class="question-container">
+            <p class="question-number">Question 1 of 5</p>
+            <h3 class="question">Which Indian state is known as the "Land of Spices"?</h3>
+            
+            <div class="options">
+                <button class="option-btn" onclick="checkAnswer('Kerala')">Kerala</button>
+                <button class="option-btn" onclick="checkAnswer('Tamil Nadu')">Tamil Nadu</button>
+                <button class="option-btn" onclick="checkAnswer('Karnataka')">Karnataka</button>
+                <button class="option-btn" onclick="checkAnswer('Andhra Pradesh')">Andhra Pradesh</button>
+            </div>
+        </div>
+
+        <div class="description">
+            <h3>The Spice Trade Legacy</h3>
+            <p>Kerala has historically been known as the "Land of Spices" due to its rich heritage in spice cultivation and trade. The state's unique geographical features and climate make it ideal for growing various spices like cardamom, pepper, cinnamon, and cloves.</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

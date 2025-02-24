@@ -1,0 +1,101 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #87CEEB;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* Age Verification Styles */
+.btn {
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.green { background-color: #28a745; }
+.red { background-color: #dc3545; }
+
+/* Quiz Styles */
+.header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.coins {
+    background-color: #ffcccb;
+    padding: 8px 15px;
+    border-radius: 20px;
+}
+
+.timer {
+    background-color: #87CEEB;
+    padding: 8px 15px;
+    border-radius: 20px;
+    color: white;
+}
+
+.question-number {
+    text-align: center;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.question {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.option-btn {
+    background-color: #87CEEB;
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.option-btn:hover {
+    background-color: #5fb6e7;
+}
+
+.description {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+}
+
+.description h3 {
+    margin-bottom: 10px;
+    color: #333;
+}
